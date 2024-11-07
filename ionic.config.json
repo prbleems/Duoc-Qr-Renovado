@@ -1,0 +1,7 @@
+{
+  "name": "Duoc-qr-renovado",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
