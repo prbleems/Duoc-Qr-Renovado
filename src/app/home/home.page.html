@@ -1,19 +1,77 @@
-<ion-header [translucent]="true">
-</ion-header>
+<ion-menu side="start" contentId="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar color="light">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="menu-content">
+    <ion-list>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item button>
+          <ion-label>Scanear QR</ion-label>
+        </ion-item>
+        <ion-item button>
+          <ion-label>Crear QR</ion-label>
+        </ion-item>
+        <ion-item button>
+          <ion-label>Cerrar sesión</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-<ion-content [fullscreen]="true" class="ion-padding ion-text-center">
-  <div class="login-container">
-    <div class="login-card">
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
       <img src="assets/RegisterAPP-icon.png" alt="icono" class="logo">
-      <h2>Bienvenido! </h2>
-      <h2>Codigo recuperacion es </h2>
-      
-      <div class="button-container">
-        <button class="login-button">Ramos inscritos</button>
-        <button class="login-button">Scanear QR</button>
-        <button class="login-button">Crear QR</button>
-        <button class="login-button">Cerrar sesion</button>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true" class="ion-padding">
+    <div class="login-container">
+      <div class="login-card">
+        <h2>Bienvenido</h2>
+        <h3>Tu codigo de recuperacion es</h3>
+        <h3>Ramos inscritos (Siglas)</h3>
+
+        <!-- Lista compacta de ramos -->
+        <ion-list>
+          <ion-item lines="full">
+            <ion-label>
+              <strong>Historia Moderna</strong>
+              <p>Asistido: 8 veces</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>
+              <strong>Dibujo Técnico</strong>
+              <p>Asistido: 10 veces</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>
+              <strong>Teoría Urbanismo</strong>
+              <p>Asistido: 7 veces</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>
+              <strong>Materiales Construcción</strong>
+              <p>Asistido: 12 veces</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>
+              <strong>Diseño Interiores</strong>
+              <p>Asistido: 9 veces</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
       </div>
     </div>
-  </div>
-</ion-content>
+  </ion-content>
+</div>

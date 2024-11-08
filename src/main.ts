@@ -10,6 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loadingScreen) {
     setTimeout(() => {
       loadingScreen.style.display = 'none';
-    }, 10);
+    }, 1);
   }
 });

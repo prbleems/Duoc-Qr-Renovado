@@ -59,6 +59,13 @@ ion-content {
   }
 
 .logo {
-  width: 300px;
-  margin-bottom: 10px;
+  width: 250px;
+  }
+
+  .menu-content {
+    --background: #ffffff;
+  }
+  
+  ion-item {
+    --background: transparent;
   }
