@@ -1,13 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>generarqr</ion-title>
+    <ion-title>Crear QR</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">generarqr</ion-title>
-    </ion-toolbar>
-  </ion-header>
+ <ion-text color="primary">
+  <h1>Crear QR</h1>
+ </ion-text>
+ <input type="text" [(ngModel)]="texto">
+ <br><br>
+ <qrcode [qrdata]="texto" [width]="400">
+</qrcode>
 </ion-content>
