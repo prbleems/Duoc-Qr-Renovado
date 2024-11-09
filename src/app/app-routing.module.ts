@@ -3,10 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'generarqr',
-    loadChildren: () => import('./generarqr/generarqr.module').then( m => m.GenerarqrPageModule)
-  },
-  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
@@ -18,10 +14,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'generarqr',
-    loadChildren: () => import('./generarqr/generarqr.module').then( m => m.GenerarqrPageModule)
   },
   {
     path: 'scanqr',

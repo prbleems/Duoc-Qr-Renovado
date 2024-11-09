@@ -7,9 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { CrearqrPageRoutingModule } from './crearqr-routing.module';
 
 import { CrearqrPage } from './crearqr.page';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
-  imports: [
+  imports: [QRCodeModule,
     CommonModule,
     FormsModule,
     IonicModule,
