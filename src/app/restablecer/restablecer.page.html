@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding ion-text-center">
+  <div class="login-container">
+    <div class="login-card">
+      <img src="assets/RegisterAPP-icon.png" alt="App Logo" class="logo" />
+      
+      <ion-item class="input-item" lines="full">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input type="text" placeholder="Nombre de usuario"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="full">
+        <ion-icon name="key-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Código de Restablecimiento</ion-label>
+        <ion-input type="text" placeholder="Código recibido"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item" lines="full">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-label position="stacked">Nueva Contraseña</ion-label>
+        <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Nueva contraseña"></ion-input>
+        <ion-icon 
+          slot="end" 
+          [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+          (click)="togglePasswordVisibility()" 
+          style="cursor: pointer;">
+        </ion-icon>
+      </ion-item>
+
+      <button class="login-button">Restablecer Contraseña</button>
+      <a href="#" class="forgot-password">¿Volver al inicio de sesión?</a>
+    </div>
+  </div>
+</ion-content>
