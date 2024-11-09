@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -27,6 +27,16 @@ const routes: Routes = [
     path: 'crearqr',
     loadChildren: () => import('./crearqr/crearqr.module').then( m => m.CrearqrPageModule)
   },
+  {
+    path: 'p404',
+    loadChildren: () => import('./p404/p404.module').then( m => m.P404PageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'p404',
+    pathMatch: 'full'
+  },
+
 
 ];
 
