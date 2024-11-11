@@ -8,7 +8,7 @@
     <ion-list>
       <ion-menu-toggle auto-hide="true">
         <ion-item button>
-          <ion-label>Home</ion-label>
+          <a href="/home" >Home</a>
         </ion-item>
         <ion-item button>
           <ion-label>Scanear QR</ion-label>
@@ -16,7 +16,7 @@
         <ion-item button>
           <ion-label>Crear QR</ion-label>
         </ion-item>
-        <ion-item button>
+        <ion-item button (click)="logout()">
           <ion-label>Cerrar sesión</ion-label>
         </ion-item>
       </ion-menu-toggle>
@@ -64,5 +64,7 @@
 
       </div>
     </div>
+    
   </ion-content>
 </div>
+
