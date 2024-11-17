@@ -7,13 +7,10 @@
   <ion-content class="menu-content">
     <ion-list>
       <ion-menu-toggle auto-hide="true">
-        <ion-item button>
-          <a href="/home" >Home</a>
+        <ion-item button [routerLink]="['/home']">
+          <ion-label>Home</ion-label>
         </ion-item>
-        <ion-item button>
-          <ion-label>Scanear QR</ion-label>
-        </ion-item>
-        <ion-item button>
+        <ion-item button [routerLink]="['/crearqr']">
           <ion-label>Crear QR</ion-label>
         </ion-item>
         <ion-item button (click)="logout()">

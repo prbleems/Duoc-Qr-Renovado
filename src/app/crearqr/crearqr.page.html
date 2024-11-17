@@ -7,14 +7,11 @@
   <ion-content class="menu-content">
     <ion-list>
       <ion-menu-toggle auto-hide="true">
-        <ion-item button>
-          <a href="/home" >Home</a>
+        <ion-item button [routerLink]="['/home']">
+          <ion-label>Home</ion-label>
         </ion-item>
-        <ion-item button>
+        <ion-item button [routerLink]="['/scanqr']">
           <ion-label>Scanear QR</ion-label>
-        </ion-item>
-        <ion-item button>
-          <ion-label>Crear QR</ion-label>
         </ion-item>
         <ion-item button (click)="logout()">
           <ion-label>Cerrar sesión</ion-label>
@@ -39,14 +36,16 @@
       <h2>Crear Código QR</h2>
       <h5>Asignatura</h5>
       <input type="text" [(ngModel)]="text">
-      <h5>Seccion/Sigla</h5>
-      <input type="texto" [(ngModel)]="texto">
+      <h5>Sección/Sigla</h5>
+      <input type="text" [(ngModel)]="texto">
       <h5>Fecha</h5>
       <input type="date" [(ngModel)]="fecha">
       <br><br>
-      <qrcode [qrdata]="text" [width]="300" [qrdata]="texto" [width]="300" [qrdata]="fecha" [width]="300">
-     </qrcode>
+      
+
+      <qrcode [qrdata]="generateQRData()" [width]="100"></qrcode>
+      
       <ion-button expand="full" class="scan-button">Iniciar Escaneo</ion-button>
     </div>
   </ion-content>
-</div>
+  

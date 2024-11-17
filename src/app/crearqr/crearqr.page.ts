@@ -7,16 +7,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./crearqr.page.scss'],
 })
 export class CrearqrPage implements OnInit {
-  text:any;
-  texto:any;
-  fecha:any;
+  text: string = '';
+  texto: string = '';
+  fecha: string = '';
+
   constructor(private router: Router) {}
+
+  ngOnInit() {}
 
   logout() {
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
-  ngOnInit() {
-  }
 
+
+  generateQRData(): string {
+    return `Asignatura: ${this.text}\nSección: ${this.texto}\nFecha: ${this.fecha}`;
+  }
 }
