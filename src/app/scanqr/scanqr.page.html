@@ -35,32 +35,36 @@
     <div class="login-container">
       <div class="login-card">
         <h2>Escanear Código QR</h2>
-
+        
         <ion-header>
           <ion-toolbar>
             <ion-title>Escaner QR</ion-title>
           </ion-toolbar>
         </ion-header>        
+        
         <ion-content>
           <ion-list>
             <ion-item *ngIf="result">
-              {{result}}
+              <h3>Resultado del escaneo:</h3>
+              <p>{{ result }}</p>
             </ion-item>
           </ion-list>
+          
+          <!-- Botón de escaneo -->
           <ion-fab slot="fixed" vertical="bottom" horizontal="end">
             <ion-fab-button (click)="scan()">
               <ion-icon name="scan"></ion-icon>
             </ion-fab-button>
           </ion-fab>
+          
         </ion-content>
 
         <div class="qr-scanner">
-          <button class="login-button">Iniciar Escaneo</button>
+          <!-- Botón de iniciar escaneo -->
+          <button class="login-button" (click)="scan()">Iniciar Escaneo</button>
         </div>
-
       </div>
     </div>
     
   </ion-content>
 </div>
-

@@ -33,19 +33,22 @@
 
   <ion-content [fullscreen]="true" class="ion-padding ion-text-center">
     <div class="scan-container">
-      <h2>Crear Código QR</h2>
+      <h2>Generar Código QR</h2>
+      
       <h5>Asignatura</h5>
-      <input type="text" [(ngModel)]="text">
+      <input type="text" [(ngModel)]="asignatura" placeholder="Ej: Matemáticas">
+      
       <h5>Sección/Sigla</h5>
-      <input type="text" [(ngModel)]="texto">
+      <input type="text" [(ngModel)]="seccion" placeholder="Ej: A101">
+      
       <h5>Fecha</h5>
       <input type="date" [(ngModel)]="fecha">
+      
       <br><br>
-      
-
-      <qrcode [qrdata]="generateQRData()" [width]="100"></qrcode>
-      
-      <ion-button expand="full" class="scan-button">Iniciar Escaneo</ion-button>
+      <!-- Generar el QR -->
+      <qrcode [qrdata]="generateQRData()" [width]="200"></qrcode>
+      <br>
+      <ion-button (click)="guardarClase()">Guardar Clase</ion-button>
     </div>
   </ion-content>
   
