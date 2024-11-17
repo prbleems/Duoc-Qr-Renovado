@@ -37,9 +37,10 @@
   <ion-content [fullscreen]="true" class="ion-padding ion-text-center">
     <div class="scan-container">
       <h2>Crear Código QR</h2>
-      <input type="text" [(ngModel)]="texto">
+      <h5>Asignatura</h5>
+      <input type="text" [(ngModel)]="text">
       <br><br>
-      <qrcode [qrdata]="texto" [width]="300">
+      <qrcode [qrdata]="text" [width]="300">
      </qrcode>
       <ion-button expand="full" class="scan-button">Iniciar Escaneo</ion-button>
     </div>

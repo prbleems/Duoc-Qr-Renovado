@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./crearqr.page.scss'],
 })
 export class CrearqrPage implements OnInit {
-  texto:any;
+  text:any;
   constructor(private router: Router) {}
 
   logout() {
