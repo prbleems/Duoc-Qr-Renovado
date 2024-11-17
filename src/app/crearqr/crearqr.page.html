@@ -39,8 +39,12 @@
       <h2>Crear Código QR</h2>
       <h5>Asignatura</h5>
       <input type="text" [(ngModel)]="text">
+      <h5>Seccion/Sigla</h5>
+      <input type="texto" [(ngModel)]="texto">
+      <h5>Fecha</h5>
+      <input type="date" [(ngModel)]="fecha">
       <br><br>
-      <qrcode [qrdata]="text" [width]="300">
+      <qrcode [qrdata]="text" [width]="300" [qrdata]="texto" [width]="300" [qrdata]="fecha" [width]="300">
      </qrcode>
       <ion-button expand="full" class="scan-button">Iniciar Escaneo</ion-button>
     </div>

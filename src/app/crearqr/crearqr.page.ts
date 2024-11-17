@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class CrearqrPage implements OnInit {
   text:any;
+  texto:any;
+  fecha:any;
   constructor(private router: Router) {}
 
   logout() {

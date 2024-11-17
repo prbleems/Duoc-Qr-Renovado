@@ -37,9 +37,6 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'p404',
     pathMatch: 'full'
-  },  {
-    path: 'homee',
-    loadChildren: () => import('./homee/homee.module').then( m => m.HomeePageModule)
   },
 
 
