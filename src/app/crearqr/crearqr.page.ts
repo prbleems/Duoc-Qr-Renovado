@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crearqr',
@@ -9,6 +11,33 @@ export class CrearqrPage {
   asignatura: string = '';
   seccion: string = '';
   fecha: string = '';
+  
+  constructor(private alertController: AlertController,private router: Router) {}
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Cerrar sesión',
+      message: '¿Estás seguro de que quieres cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            sessionStorage.clear();
+            this.router.navigate(['/login']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   generateQRData(): string {
     return `Asignatura: ${this.asignatura}\nSección: ${this.seccion}\nFecha: ${this.fecha}`;
@@ -20,18 +49,7 @@ export class CrearqrPage {
       seccion: this.seccion,
       fecha: this.fecha,
     };
-    // Guardar la información en el LocalStorage
     localStorage.setItem('clase', JSON.stringify(clase));
     alert('Clase guardada con éxito');
-  }
-
-  // Agregar el método logout()
-  logout() {
-    // Aquí puedes manejar la lógica de cierre de sesión
-    // Ejemplo de eliminación de datos de sesión (si los estás usando)
-    localStorage.removeItem('usuario'); // Si estás guardando algo de usuario en localStorage
-    alert('Has cerrado sesión con éxito');
-    // Redirigir a una página de login, si es necesario:
-    // this.router.navigate(['/login']);
   }
 }

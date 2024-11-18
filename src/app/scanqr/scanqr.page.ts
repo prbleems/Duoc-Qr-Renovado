@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-scanqr',
@@ -10,24 +11,42 @@ import { Router } from '@angular/router';
 export class ScanqrPage {
   result: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private alertController: AlertController) {}
 
-  // Función para cerrar sesión
-  logout() {
-    sessionStorage.clear();
-    this.router.navigate(['/login']);
+
+  async logout() {
+    const alert = await this.alertController.create({
+      header: 'Cerrar sesión',
+      message: '¿Estás seguro de que quieres cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancelado');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            sessionStorage.clear();  
+            this.router.navigate(['/login']);  
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
-  // Función para iniciar el escaneo
   async scan(): Promise<void> {
     try {
-      // Iniciar el escaneo
       const result = await BarcodeScanner.startScan();
 
       if (result.hasContent) {
-        this.result = result.content; // Guardamos el contenido del código QR
+        this.result = result.content;
 
-        // Si el QR es válido, podemos registrar la asistencia
         this.registrarAsistencia(this.result);
       } else {
         this.result = 'No se detectó ningún código QR.';
@@ -38,21 +57,20 @@ export class ScanqrPage {
     }
   }
 
-  // Función para registrar la asistencia
+ 
   registrarAsistencia(qrData: string) {
     const asistencia = {
       qrData,
       timestamp: new Date(),
     };
 
-    // Obtener el array de asistencias previas desde LocalStorage
+    
     const storedAsistencias = localStorage.getItem('asistencias');
     let asistencias = storedAsistencias ? JSON.parse(storedAsistencias) : [];
 
-    // Agregar nueva asistencia al array
     asistencias.push(asistencia);
 
-    // Guardar el array actualizado en LocalStorage
+
     localStorage.setItem('asistencias', JSON.stringify(asistencias));
 
     alert('Asistencia registrada con éxito');

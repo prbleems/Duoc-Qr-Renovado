@@ -20,6 +20,12 @@ export class AuthGuard implements CanActivate {
   private checkLogin(): boolean {
     const username = sessionStorage.getItem('username');
     const password = sessionStorage.getItem('password');
-    return username === 'admin' && password === '1234'; 
+    const users = [
+      { username: 'admin', password: '1234' },
+      { username: 'alan', password: 'hola12' },
+      { username: 'mariano', password: 'hola' },
+      { username: 'mateo', password: 'matego' },
+    ];
+    return users.some(user => user.username === username && user.password === password);
   }
 }
