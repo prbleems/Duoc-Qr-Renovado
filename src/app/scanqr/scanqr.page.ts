@@ -6,7 +6,7 @@ import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-scanqr',
   templateUrl: 'scanqr.page.html',
-  styleUrls: ['scanqr.page.scss'],
+  styleUrls: ['scanqr.page.scss']
 })
 export class ScanqrPage {
   result: string = '';
@@ -40,14 +40,14 @@ export class ScanqrPage {
     await alert.present();
   }
 
-  async scan(): Promise<void> {
+   // Escanear el código QR
+   async scan(): Promise<void> {
     try {
       const result = await BarcodeScanner.startScan();
 
       if (result.hasContent) {
         this.result = result.content;
-
-        this.registrarAsistencia(this.result);
+        this.registrarAsistencia(this.result); // Registrar la asistencia al escanear el QR
       } else {
         this.result = 'No se detectó ningún código QR.';
       }
@@ -57,22 +57,38 @@ export class ScanqrPage {
     }
   }
 
- 
+  // Registrar la asistencia
   registrarAsistencia(qrData: string) {
-    const asistencia = {
-      qrData,
-      timestamp: new Date(),
-    };
+    try {
+      const data = JSON.parse(qrData); // Convertir el string del QR a un objeto
 
-    
-    const storedAsistencias = localStorage.getItem('asistencias');
-    let asistencias = storedAsistencias ? JSON.parse(storedAsistencias) : [];
+      if (data.asignatura && data.seccion && data.fecha) {
+        // Obtener las asistencias guardadas
+        const storedAsistencias = localStorage.getItem('asistencias');
+        let asistencias = storedAsistencias ? JSON.parse(storedAsistencias) : [];
 
-    asistencias.push(asistencia);
+        // Verificar si ya existe la clase (no acumularemos asistencia, solo fecha)
+        let claseExistente = asistencias.find((asistencia: any) =>
+          asistencia.asignatura === data.asignatura && 
+          asistencia.seccion === data.seccion
+        );
 
+        if (claseExistente) {
+          claseExistente.fecha = data.fecha; // Actualizar la fecha de asistencia
+        } else {
+          asistencias.push({ ...data }); // Agregar nueva clase
+        }
 
-    localStorage.setItem('asistencias', JSON.stringify(asistencias));
+        // Guardar las asistencias actualizadas
+        localStorage.setItem('asistencias', JSON.stringify(asistencias));
 
-    alert('Asistencia registrada con éxito');
+        alert('Asistencia registrada con éxito');
+        } else {
+        alert('El código QR no contiene datos válidos');
+        }
+    } catch (error) {
+      console.error('Error al procesar el QR:', error);
+      alert('Error al procesar el QR');
+    }
   }
 }

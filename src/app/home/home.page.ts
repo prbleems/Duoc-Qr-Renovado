@@ -5,14 +5,24 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  styleUrls: ['./home.page.scss']
 })
 export class HomePage {
+  clases: any[] = [];
 
   constructor(
     private alertController: AlertController, 
     private router: Router
   ) {}
+  ngOnInit() {
+    this.obtenerAsistencias();
+  }
+
+  // Obtener las clases y asistencias desde localStorage
+  obtenerAsistencias() {
+    const storedAsistencias = localStorage.getItem('asistencias');
+    this.clases = storedAsistencias ? JSON.parse(storedAsistencias) : [];
+  }
 
   
   async logout() {

@@ -39,17 +39,43 @@ export class CrearqrPage {
     await alert.present();
   }
 
+  // Generar datos del QR como JSON
   generateQRData(): string {
-    return `Asignatura: ${this.asignatura}\nSección: ${this.seccion}\nFecha: ${this.fecha}`;
+    const qrData = {
+      asignatura: this.asignatura,
+      seccion: this.seccion,
+      fecha: this.fecha
+    };
+
+    return JSON.stringify(qrData); // Convertir a cadena JSON
   }
 
+  // Guardar clase y generar QR
   guardarClase() {
     const clase = {
       asignatura: this.asignatura,
       seccion: this.seccion,
       fecha: this.fecha,
     };
-    localStorage.setItem('clase', JSON.stringify(clase));
+
+    localStorage.setItem('clase', JSON.stringify(clase)); // Guardar en localStorage
     alert('Clase guardada con éxito');
+  }
+  formatearFecha(event: any): void {
+    if (this.fecha) {
+      const fechaFormateada = new Date(this.fecha).toISOString().split('T')[0];
+      console.log('Fecha formateada:', fechaFormateada); // Esto mostrará "yyyy-MM-dd"
+      this.fecha = fechaFormateada;
+    }
+  }
+  validateSeccion(): void {
+    // Permitir sólo un formato válido: una letra y tres números
+    const pattern = /^[A-Za-z][0-9]{0,3}$/;
+    if (!pattern.test(this.seccion)) {
+      this.seccion = this.seccion.slice(0, -1); // Eliminar último carácter inválido
+    }
+  }
+  validateFecha(): void {
+    this.fecha = this.fecha.replace(/[^0-9]/g, ''); // Permitir sólo números
   }
 }
