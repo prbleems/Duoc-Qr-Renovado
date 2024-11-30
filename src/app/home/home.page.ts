@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
   username: string = ''; // Variable para almacenar el nombre del usuario
+  role: string = ''; // Variable para almacenar el rol (alumno o profesor)
   clases: any[] = [];
 
   constructor(
@@ -19,8 +20,13 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.obtenerAsistencias();
     this.obtenerUsuario();
+    this.obtenerRol(); // Obtener el rol al iniciar la página
   }
-
+  // Obtener el rol desde sessionStorage
+  obtenerRol() {
+    this.role = sessionStorage.getItem('role') || ''; // Recupera el rol si está en sessionStorage
+    console.log('Rol recuperado:', this.role); // Log para depuración
+  }
   // Obtener el nombre del usuario desde sessionStorage
   obtenerUsuario() {
     this.username = sessionStorage.getItem('username') || 'Usuario'; // Recupera el usuario si está en sessionStorage

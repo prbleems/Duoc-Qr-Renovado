@@ -10,9 +10,20 @@ import { AlertController } from '@ionic/angular';
 })
 export class ScanqrPage {
   result: string = '';
+  username: string = ''; // Variable para almacenar el nombre del usuario
+  role: string = ''; // Variable para almacenar el rol (alumno o profesor)
+  clases: any[] = [];
 
   constructor(private router: Router,private alertController: AlertController) {}
 
+  ngOnInit() {
+    this.obtenerRol(); // Obtener el rol al iniciar la página
+  }
+  obtenerRol() {
+    this.role = sessionStorage.getItem('role') || ''; // Recupera el rol si está en sessionStorage
+    console.log('Rol recuperado:', this.role); // Log para depuración
+  }
+  
 
   async logout() {
     const alert = await this.alertController.create({

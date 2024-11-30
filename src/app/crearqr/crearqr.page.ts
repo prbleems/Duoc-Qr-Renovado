@@ -11,6 +11,15 @@ export class CrearqrPage {
   asignatura: string = '';
   seccion: string = '';
   fecha: string = '';
+  role: string = '';
+  ngOnInit() {
+    this.obtenerRol(); // Obtener el rol al iniciar la página
+  }
+  // Obtener el rol desde sessionStorage
+  obtenerRol() {
+    this.role = sessionStorage.getItem('role') || ''; // Recupera el rol si está en sessionStorage
+    console.log('Rol recuperado:', this.role); // Log para depuración
+  }
   
   constructor(private alertController: AlertController,private router: Router) {}
   async logout() {

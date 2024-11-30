@@ -7,12 +7,17 @@
   <ion-content class="menu-content">
     <ion-list>
       <ion-menu-toggle auto-hide="false">
-        <ion-item button [routerLink]="['/scanqr']">
+        <!-- Botón siempre visible para escanear QR -->
+        <ion-item button [routerLink]="['/scanqr']" *ngIf="role !== 'profesor'">
           <ion-label>Scanear QR</ion-label>
         </ion-item>
-        <ion-item button [routerLink]="['/crearqr']">
+
+         <!-- Mostrar solo si el rol es "profesor" -->
+         <ion-item *ngIf="role === 'profesor'" button [routerLink]="['/crearqr']">
           <ion-label>Crear QR</ion-label>
         </ion-item>
+
+        <!-- Botón de cerrar sesión -->
         <ion-item button (click)="logout()">
           <ion-label>Cerrar sesión</ion-label>
         </ion-item>

@@ -1,25 +1,41 @@
-<ion-header [translucent]="true"></ion-header>
-
 <ion-content [fullscreen]="true" class="ion-padding ion-text-center">
   <div class="login-container">
     <div class="login-card">
       <img src="assets/RegisterAPP-icon.png" alt="App Logo" class="logo" />
 
-      <ion-item class="input-item" lines="full">
-        <ion-icon name="person-outline" slot="start"></ion-icon>
-        <ion-label position="stacked">Usuario</ion-label>
-        <ion-input [(ngModel)]="username" type="text" placeholder="Nombre de usuario"></ion-input>
-      </ion-item>
+      <!-- Selección de rol -->
+      <ng-container *ngIf="!roleSelected">
+        <h2>Selecciona tu Rol</h2>
+        <ion-button expand="block" color="primary" (click)="selectRole('profesor')">
+          Profesor
+        </ion-button>
+        <ion-button expand="block" color="secondary" (click)="selectRole('alumno')">
+          Alumno
+        </ion-button>
+      </ng-container>
 
-      <ion-item class="input-item" lines="full">
-        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-label position="stacked">Contraseña</ion-label>
-        <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña"></ion-input>
-        <ion-icon slot="end" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="togglePasswordVisibility()" style="cursor: pointer;"></ion-icon>
-      </ion-item>
+      <!-- Formulario de inicio de sesión -->
+      <ng-container *ngIf="roleSelected">
+        <h2>Iniciar sesión como {{ role }}</h2>
 
-      <ion-button expand="block" (click)="login()">Entrar</ion-button>
-      <a href="/restablecer" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        <!-- Formulario de usuario y contraseña -->
+        <ion-item class="input-item" lines="full">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-label position="stacked">Usuario</ion-label>
+          <ion-input [(ngModel)]="username" type="text" placeholder="Nombre de usuario"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item" lines="full">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña"></ion-input>
+          <ion-icon slot="end" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="togglePasswordVisibility()" style="cursor: pointer;"></ion-icon>
+        </ion-item>
+
+        <ion-button expand="block" (click)="login()">Entrar</ion-button>
+        <a href="/restablecer" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        <ion-button expand="block" color="medium" (click)="goBackToRoleSelection()">Volver a elegir rol</ion-button>
+      </ng-container>
     </div>
   </div>
 </ion-content>
