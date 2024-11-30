@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content class="menu-content">
     <ion-list>
-      <ion-menu-toggle auto-hide="true">
+      <ion-menu-toggle auto-hide="false">
         <ion-item button [routerLink]="['/scanqr']">
           <ion-label>Scanear QR</ion-label>
         </ion-item>
@@ -34,12 +34,11 @@
   <ion-content [fullscreen]="true" class="ion-padding">
     <div class="login-container">
       <div class="login-card">
-        <h2>Bienvenido</h2>
-        <h3>Tu codigo de recuperacion es</h3>
+        <!-- Mostrar el nombre del usuario en el saludo -->
+        <h2>Bienvenido, {{ username }}</h2>
         <h3>Ramos inscritos (Siglas)</h3>
 
         <!-- Lista compacta de ramos -->
-
         <ion-list>
           <ion-item *ngFor="let clase of clases">
             <ion-label>

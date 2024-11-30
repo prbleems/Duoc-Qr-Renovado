@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -7,15 +7,23 @@ import { Router } from '@angular/router';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  username: string = ''; // Variable para almacenar el nombre del usuario
   clases: any[] = [];
 
   constructor(
     private alertController: AlertController, 
     private router: Router
   ) {}
+
   ngOnInit() {
     this.obtenerAsistencias();
+    this.obtenerUsuario();
+  }
+
+  // Obtener el nombre del usuario desde sessionStorage
+  obtenerUsuario() {
+    this.username = sessionStorage.getItem('username') || 'Usuario'; // Recupera el usuario si está en sessionStorage
   }
 
   // Obtener las clases y asistencias desde localStorage
@@ -24,7 +32,7 @@ export class HomePage {
     this.clases = storedAsistencias ? JSON.parse(storedAsistencias) : [];
   }
 
-  
+  // Cerrar sesión
   async logout() {
     const alert = await this.alertController.create({
       header: 'Cerrar sesión',
@@ -41,7 +49,7 @@ export class HomePage {
         {
           text: 'Confirmar',
           handler: () => {
-            sessionStorage.clear();
+            sessionStorage.clear(); // Limpiar sessionStorage
             this.router.navigate(['/login']);
           }
         }
