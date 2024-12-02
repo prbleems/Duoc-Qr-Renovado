@@ -11,7 +11,7 @@ export class LoginPage {
   username: string = '';
   password: string = '';
   showPassword: boolean = false;
-  roleSelected: boolean = false; // Variable para determinar si se seleccionó un rol
+  roleSelected: boolean = false; 
   role: string = '';
 
   constructor(private router: Router, private authService: AuthService) {}
@@ -20,8 +20,6 @@ export class LoginPage {
     this.showPassword = !this.showPassword;
   }
  
-
-  // Método para regresar a la selección de roles
   resetRole() {
     this.roleSelected = false;
     this.username = '';
@@ -30,19 +28,19 @@ export class LoginPage {
 
 
   selectRole(role: string) {
-    this.role = role;        // Establece el rol seleccionado
-    this.roleSelected = true; // Cambia el estado para mostrar el formulario de inicio de sesión
+    this.role = role;        
+    this.roleSelected = true; 
   }
   goBackToRoleSelection() {
-    this.role = '';          // Reinicia el rol seleccionado
-    this.roleSelected = false; // Vuelve al estado de selección de rol
+    this.role = '';          
+    this.roleSelected = false; 
   }
 
   login() {
     if (this.authService.validateUser(this.username, this.password)) {
       sessionStorage.setItem('username', this.username);
       sessionStorage.setItem('password', this.password);
-      sessionStorage.setItem('role', this.role);  // Almacena el rol en sessionStorage
+      sessionStorage.setItem('role', this.role); 
       this.router.navigate(['/home']);
     } else {
       alert('Usuario o contraseña incorrectos');

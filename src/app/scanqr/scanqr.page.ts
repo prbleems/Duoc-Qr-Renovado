@@ -10,18 +10,18 @@ import { AlertController } from '@ionic/angular';
 })
 export class ScanqrPage {
   result: string = '';
-  username: string = ''; // Variable para almacenar el nombre del usuario
-  role: string = ''; // Variable para almacenar el rol (alumno o profesor)
+  username: string = '';
+  role: string = ''; 
   clases: any[] = [];
 
   constructor(private router: Router,private alertController: AlertController) {}
 
   ngOnInit() {
-    this.obtenerRol(); // Obtener el rol al iniciar la página
+    this.obtenerRol();
   }
   obtenerRol() {
-    this.role = sessionStorage.getItem('role') || ''; // Recupera el rol si está en sessionStorage
-    console.log('Rol recuperado:', this.role); // Log para depuración
+    this.role = sessionStorage.getItem('role') || ''; 
+    console.log('Rol recuperado:', this.role); 
   }
   
 
@@ -51,14 +51,13 @@ export class ScanqrPage {
     await alert.present();
   }
 
-   // Escanear el código QR
    async scan(): Promise<void> {
     try {
       const result = await BarcodeScanner.startScan();
 
       if (result.hasContent) {
         this.result = result.content;
-        this.registrarAsistencia(this.result); // Registrar la asistencia al escanear el QR
+        this.registrarAsistencia(this.result); 
       } else {
         this.result = 'No se detectó ningún código QR.';
       }
@@ -68,29 +67,25 @@ export class ScanqrPage {
     }
   }
 
-  // Registrar la asistencia
+ 
   registrarAsistencia(qrData: string) {
     try {
-      const data = JSON.parse(qrData); // Convertir el string del QR a un objeto
-
+      const data = JSON.parse(qrData); 
       if (data.asignatura && data.seccion && data.fecha) {
-        // Obtener las asistencias guardadas
         const storedAsistencias = localStorage.getItem('asistencias');
         let asistencias = storedAsistencias ? JSON.parse(storedAsistencias) : [];
 
-        // Verificar si ya existe la clase (no acumularemos asistencia, solo fecha)
         let claseExistente = asistencias.find((asistencia: any) =>
           asistencia.asignatura === data.asignatura && 
           asistencia.seccion === data.seccion
         );
 
         if (claseExistente) {
-          claseExistente.fecha = data.fecha; // Actualizar la fecha de asistencia
+          claseExistente.fecha = data.fecha;
         } else {
-          asistencias.push({ ...data }); // Agregar nueva clase
+          asistencias.push({ ...data }); 
         }
 
-        // Guardar las asistencias actualizadas
         localStorage.setItem('asistencias', JSON.stringify(asistencias));
 
         alert('Asistencia registrada con éxito');

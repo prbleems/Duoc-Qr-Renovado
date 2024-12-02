@@ -13,12 +13,11 @@ export class CrearqrPage {
   fecha: string = '';
   role: string = '';
   ngOnInit() {
-    this.obtenerRol(); // Obtener el rol al iniciar la página
+    this.obtenerRol(); 
   }
-  // Obtener el rol desde sessionStorage
   obtenerRol() {
-    this.role = sessionStorage.getItem('role') || ''; // Recupera el rol si está en sessionStorage
-    console.log('Rol recuperado:', this.role); // Log para depuración
+    this.role = sessionStorage.getItem('role') || ''; 
+    console.log('Rol recuperado:', this.role);
   }
   
   constructor(private alertController: AlertController,private router: Router) {}
@@ -48,7 +47,6 @@ export class CrearqrPage {
     await alert.present();
   }
 
-  // Generar datos del QR como JSON
   generateQRData(): string {
     const qrData = {
       asignatura: this.asignatura,
@@ -56,10 +54,10 @@ export class CrearqrPage {
       fecha: this.fecha
     };
 
-    return JSON.stringify(qrData); // Convertir a cadena JSON
+    return JSON.stringify(qrData); 
   }
 
-  // Guardar clase y generar QR
+
   guardarClase() {
     const clase = {
       asignatura: this.asignatura,
@@ -67,24 +65,23 @@ export class CrearqrPage {
       fecha: this.fecha,
     };
 
-    localStorage.setItem('clase', JSON.stringify(clase)); // Guardar en localStorage
+    localStorage.setItem('clase', JSON.stringify(clase)); 
     alert('Clase guardada con éxito');
   }
   formatearFecha(event: any): void {
     if (this.fecha) {
       const fechaFormateada = new Date(this.fecha).toISOString().split('T')[0];
-      console.log('Fecha formateada:', fechaFormateada); // Esto mostrará "yyyy-MM-dd"
+      console.log('Fecha formateada:', fechaFormateada); 
       this.fecha = fechaFormateada;
     }
   }
   validateSeccion(): void {
-    // Permitir sólo un formato válido: una letra y tres números
     const pattern = /^[A-Za-z][0-9]{0,3}$/;
     if (!pattern.test(this.seccion)) {
-      this.seccion = this.seccion.slice(0, -1); // Eliminar último carácter inválido
+      this.seccion = this.seccion.slice(0, -1); 
     }
   }
   validateFecha(): void {
-    this.fecha = this.fecha.replace(/[^0-9]/g, ''); // Permitir sólo números
+    this.fecha = this.fecha.replace(/[^0-9]/g, ''); 
   }
 }

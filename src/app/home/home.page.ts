@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.scss']
 })
 export class HomePage implements OnInit {
-  username: string = ''; // Variable para almacenar el nombre del usuario
-  role: string = ''; // Variable para almacenar el rol (alumno o profesor)
+  username: string = '';
+  role: string = ''; 
   clases: any[] = [];
 
   constructor(
@@ -20,25 +20,24 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.obtenerAsistencias();
     this.obtenerUsuario();
-    this.obtenerRol(); // Obtener el rol al iniciar la página
+    this.obtenerRol(); 
   }
-  // Obtener el rol desde sessionStorage
   obtenerRol() {
-    this.role = sessionStorage.getItem('role') || ''; // Recupera el rol si está en sessionStorage
-    console.log('Rol recuperado:', this.role); // Log para depuración
+    this.role = sessionStorage.getItem('role') || ''; 
+    console.log('Rol recuperado:', this.role); 
   }
-  // Obtener el nombre del usuario desde sessionStorage
+ 
   obtenerUsuario() {
-    this.username = sessionStorage.getItem('username') || 'Usuario'; // Recupera el usuario si está en sessionStorage
+    this.username = sessionStorage.getItem('username') || 'Usuario'; 
   }
 
-  // Obtener las clases y asistencias desde localStorage
+ 
   obtenerAsistencias() {
     const storedAsistencias = localStorage.getItem('asistencias');
     this.clases = storedAsistencias ? JSON.parse(storedAsistencias) : [];
   }
 
-  // Cerrar sesión
+  
   async logout() {
     const alert = await this.alertController.create({
       header: 'Cerrar sesión',
@@ -55,7 +54,7 @@ export class HomePage implements OnInit {
         {
           text: 'Confirmar',
           handler: () => {
-            sessionStorage.clear(); // Limpiar sessionStorage
+            sessionStorage.clear(); 
             this.router.navigate(['/login']);
           }
         }
