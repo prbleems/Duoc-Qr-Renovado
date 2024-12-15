@@ -45,19 +45,17 @@
             <ion-title>Escaner QR</ion-title>
           </ion-toolbar>
         </ion-header>   
-
-          <ion-list>
-            <ion-item *ngIf="result">
-              <h1>Resultado del escaneo:</h1>
-              <p>{{ result }}</p>
-            </ion-item>
-          </ion-list>
-        
+  
+        <ion-list>
+          <ion-item *ngIf="result">
+            <p>{{ result }}</p>
+          </ion-item>
+        </ion-list>
+      
         <div class="qr-scanner">
           <button class="login-button" (click)="scan()">Iniciar Escaneo</button>
         </div>
       </div>
     </div>
-    
   </ion-content>
-</div>
+  

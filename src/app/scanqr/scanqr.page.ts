@@ -13,17 +13,18 @@ export class ScanqrPage {
   username: string = '';
   role: string = ''; 
   clases: any[] = [];
+  scannedQRCodes: string[] = [];
 
-  constructor(private router: Router,private alertController: AlertController) {}
+  constructor(private router: Router, private alertController: AlertController) {}
 
   ngOnInit() {
     this.obtenerRol();
   }
+
   obtenerRol() {
     this.role = sessionStorage.getItem('role') || ''; 
     console.log('Rol recuperado:', this.role); 
   }
-  
 
   async logout() {
     const alert = await this.alertController.create({
@@ -51,33 +52,39 @@ export class ScanqrPage {
     await alert.present();
   }
 
-   async scan(): Promise<void> {
+  async scan(): Promise<void> {
     try {
       const result = await BarcodeScanner.startScan();
 
       if (result.hasContent) {
-        this.result = result.content;
-        this.registrarAsistencia(this.result); 
+        if (this.scannedQRCodes.includes(result.content)) {
+          this.result = 'Este código QR ya ha sido escaneado.';
+        } else {
+          this.registrarAsistencia(result.content);
+          this.scannedQRCodes.push(result.content); 
+        }
       } else {
         this.result = 'No se detectó ningún código QR.';
       }
     } catch (error) {
-      this.result = 'Error al escanear el código QR';
+      this.result = 'Error al escanear el código QR.';
       console.error(error);
     }
   }
 
- 
   registrarAsistencia(qrData: string) {
     try {
-      const data = JSON.parse(qrData); 
-      if (data.asignatura && data.seccion && data.fecha) {
-        const storedAsistencias = localStorage.getItem('asistencias');
-        let asistencias = storedAsistencias ? JSON.parse(storedAsistencias) : [];
+      const data = JSON.parse(qrData);
 
-        let claseExistente = asistencias.find((asistencia: any) =>
-          asistencia.asignatura === data.asignatura && 
-          asistencia.seccion === data.seccion
+      if (data.asignatura && data.seccion && data.sala && data.fecha) {
+        const storedAsistencias = localStorage.getItem('asistencias');
+        const asistencias = storedAsistencias ? JSON.parse(storedAsistencias) : [];
+
+        const claseExistente = asistencias.find(
+          (asistencia: any) =>
+            asistencia.asignatura === data.asignatura &&
+            asistencia.seccion === data.seccion &&
+            asistencia.sala === data.sala
         );
 
         if (claseExistente) {
@@ -88,13 +95,17 @@ export class ScanqrPage {
 
         localStorage.setItem('asistencias', JSON.stringify(asistencias));
 
+        this.result = `${data.asignatura}|${data.seccion}|${data.sala}|${data.fecha}`;
+
         alert('Asistencia registrada con éxito');
-        } else {
-        alert('El código QR no contiene datos válidos');
-        }
+      } else {
+        this.result = 'El código QR no contiene datos válidos.';
+        alert('El código QR no contiene datos válidos.');
+      }
     } catch (error) {
       console.error('Error al procesar el QR:', error);
-      alert('Error al procesar el QR');
+      this.result = 'Error al procesar el QR.';
+      alert('Error al procesar el QR.');
     }
   }
 }

@@ -11,17 +11,14 @@
           <ion-icon name="home-outline" slot="start" color="primary"></ion-icon>
           <ion-label>Home</ion-label>
         </ion-item>
-        <!-- Botón siempre visible para escanear QR -->
         <ion-item button [routerLink]="['/scanqr']" *ngIf="role !== 'profesor'">
           <ion-label>Scanear QR</ion-label>
         </ion-item>
 
-         <!-- Mostrar solo si el rol es "profesor" -->
          <ion-item *ngIf="role === 'profesor'" button [routerLink]="['/crearqr']">
           <ion-label>Crear QR</ion-label>
         </ion-item>
 
-        <!-- Botón de cerrar sesión -->
         <ion-item button (click)="logout()">
           <ion-label>Cerrar sesión</ion-label>
         </ion-item>
@@ -43,32 +40,32 @@
   <ion-content [fullscreen]="true" class="ion-padding ion-text-center">
     <div class="scan-container">
       <h2>Generar Código QR</h2>
-      
+  
       <h5>Asignatura</h5>
-      <input type="text" [(ngModel)]="asignatura" placeholder="Ej: Matemáticas">
-      
-      <h5>Sección/Sigla</h5>
-      <input 
-       type="text" 
-       [(ngModel)]="seccion" 
-       placeholder="Ej: A101" 
-       maxlength="4" 
-       (input)="validateSeccion()" 
-       />
-
-       <h5>Fecha</h5>
-       <input 
-         type="text" 
-         [(ngModel)]="fecha" 
-         placeholder="Ej: 20241124" 
-         maxlength="8" 
-         (input)="validateFecha()" 
-       />
-      
-      <br><br>
-      <!-- Generar el QR -->
+      <select [(ngModel)]="asignaturaSeleccionada" (change)="actualizarDatosAsignatura()">
+        <option *ngFor="let asignatura of asignaturas" [value]="asignatura.nombre">
+          {{ asignatura.nombre }}
+        </option>
+      </select>
+  
+      <h5>Sección</h5>
+      <input type="text" [(ngModel)]="seccion" readonly />
+  
+      <h5>Sala</h5>
+      <input type="text" [(ngModel)]="sala" readonly />
+  
+      <h5>Fecha</h5>
+      <input
+        type="text"
+        [(ngModel)]="fecha"
+        placeholder="YYYYMMDD"
+        maxlength="8"
+        (input)="validarFecha($event)"
+      />
+  
+      <br /><br />
       <qrcode [qrdata]="generateQRData()" [width]="200"></qrcode>
-      <br>
-      <ion-button (click)="guardarClase()">Guardar Clase</ion-button>
+      <br />
     </div>
   </ion-content>
+  
