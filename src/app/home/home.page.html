@@ -4,20 +4,18 @@
       <ion-title>Menú</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-content class="menu-content">
     <ion-list>
       <ion-menu-toggle auto-hide="false">
-        <!-- Botón siempre visible para escanear QR -->
-        <ion-item button [routerLink]="['/scanqr']" *ngIf="role !== 'profesor'">
+        <ion-item button [routerLink]="['/scanqr']" *ngIf="username !== 'profesorcarlos'">
           <ion-label>Scanear QR</ion-label>
         </ion-item>
 
-         <!-- Mostrar solo si el rol es "profesor" -->
-         <ion-item *ngIf="role === 'profesor'" button [routerLink]="['/crearqr']">
+        <ion-item button [routerLink]="['/crearqr']" *ngIf="username === 'profesorcarlos'">
           <ion-label>Crear QR</ion-label>
         </ion-item>
 
-        <!-- Botón de cerrar sesión -->
         <ion-item button (click)="logout()">
           <ion-label>Cerrar sesión</ion-label>
         </ion-item>
@@ -39,11 +37,9 @@
   <ion-content [fullscreen]="true" class="ion-padding">
     <div class="login-container">
       <div class="login-card">
-        <!-- Mostrar el nombre del usuario en el saludo -->
         <h2>Bienvenido, {{ username }}</h2>
         <h3>Ramos inscritos (Siglas)</h3>
 
-        <!-- Lista compacta de ramos -->
         <ion-list>
           <ion-item *ngFor="let clase of clases">
             <ion-label>

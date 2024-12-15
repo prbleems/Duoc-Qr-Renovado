@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,12 @@ export class HomePage implements OnInit {
 
   constructor(
     private alertController: AlertController, 
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.obtenerAsistencias();
-    this.obtenerUsuario();
-    this.obtenerRol(); 
+    this.username = this.authService.getUsername(); 
   }
   obtenerRol() {
     this.role = sessionStorage.getItem('role') || ''; 

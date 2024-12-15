@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-crearqr',
@@ -20,10 +21,12 @@ export class CrearqrPage {
     { nombre: 'Literatura Clásica', seccion: 'A103', sala: '606' },
   ];
 
-  constructor(private alertController: AlertController, private router: Router) {}
+  constructor(private alertController: AlertController, private router: Router,private authService: AuthService) {}
+  username: string = ''
+  clases: any[] = [];
 
   ngOnInit() {
-    this.obtenerRol();
+    this.username = this.authService.getUsername(); 
   }
 
   obtenerRol() {

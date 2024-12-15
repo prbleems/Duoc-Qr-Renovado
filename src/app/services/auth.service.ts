@@ -9,23 +9,33 @@ export class AuthService {
     { username: 'alan', password: 'hola12' },
     { username: 'mariano', password: 'hola' },
     { username: 'mateo', password: 'matego' },
+    { username: 'profesorcarlos', password: 'carlos123' },
   ];
+  private loggedInUser: string = '';
 
-  constructor() {}
-
-  // Método para validar si las credenciales son correctas
   validateUser(username: string, password: string): boolean {
     const user = this.users.find(u => u.username === username && u.password === password);
-    return !!user;  // Retorna true si el usuario existe, false si no
+    if (user) {
+      this.loggedInUser = username; 
+      return true;
+    }
+    return false;
+  }
+  getUsername(): string {
+    return this.loggedInUser;
   }
 
-  // Método para cambiar la contraseña del usuario
+  logout() {
+    this.loggedInUser = '';
+  }
+
   changePassword(username: string, newPassword: string): boolean {
     const user = this.users.find(u => u.username === username);
     if (user) {
-      user.password = newPassword;  // Cambia la contraseña
+      user.password = newPassword; 
       return true;
     }
-    return false;  // Si no encuentra el usuario, no hace cambios
+    return false; 
   }
+  
 }
